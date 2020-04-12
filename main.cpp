@@ -38,7 +38,7 @@ void constructChildren(Node* node, Pokemon* pikachu, Pokemon* blastoise, int max
     if (node->turn == 'P') {
         float effectiveProbability = calculateProbability(node, pikachu);
         for (int i = 0; i < pikachu->atackStats.size(); i++) {
-            if (pikachu->atackStats[i].firstUse <= node->level + 1 && (pikachu->atackStats[i].PP * (-1)) <= node->pikachuPP) {
+            if (pikachu->atackStats[i].firstUse <= node->level + 1 && (pikachu->atackStats[i].PP * (-1)) <= node->pikachuPP && node->pikachuHP > 0) {
                 if (pikachu->atackStats[i].accuracy != 100) {
                     Node* uneffectiveChild = new Node(node->pikachuHP, (node->pikachuPP + pikachu->atackStats[i].PP), node->blastoiseHP, node->blastoisePP);
                     uneffectiveChild->parent = node;
@@ -69,7 +69,7 @@ void constructChildren(Node* node, Pokemon* pikachu, Pokemon* blastoise, int max
     else {
         float effectiveProbability = calculateProbability(node, blastoise);
         for (int i = 0; i < blastoise->atackStats.size(); i++) {
-            if (blastoise->atackStats[i].firstUse <= node->level + 1 && (blastoise->atackStats[i].PP * (-1)) <= node->blastoisePP) {
+            if (blastoise->atackStats[i].firstUse <= node->level + 1 && (blastoise->atackStats[i].PP * (-1)) <= node->blastoisePP && node->blastoiseHP > 0) {
                 if (blastoise->atackStats[i].accuracy != 100) {
                     Node* uneffectiveChild = new Node(node->pikachuHP, node->pikachuPP, node->blastoiseHP, (node->blastoisePP + blastoise->atackStats[i].PP));
                     uneffectiveChild->parent = node;
